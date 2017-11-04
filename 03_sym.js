@@ -5,8 +5,10 @@ function sym (args) {
   var arrResult = [];
   for (var i = 0; i < arguments.length; i++) {
     var arrArg = arguments[i];
+    // Get uniqu array values
     var arrayTemp = arrArg.filter(onlyUnique);
     arrResult=arrResult.concat(arrayTemp);
+    // Get values that only appear once in array
     arrResult = arrResult.filter(function(numNumber){
       return arrResult.indexOf(numNumber) === arrResult.lastIndexOf(numNumber);
     });
