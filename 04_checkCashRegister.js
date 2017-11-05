@@ -1,18 +1,19 @@
 
 function checkCashRegister(price, cash, cid) {
+	console.log('');
 	var change = cash - price;
 	var arrDenoms = [0.01, 0.05, 0.10, 0.25, 1, 5, 10, 20, 100];
-	console.log(change);
+	var drawer = [];
 	for (var i = arrDenoms.length - 1; i >= 0; i--) {
-		var item = cid[i][0];
-		var itemDenom = arrDenoms[i];
-		var itemsInDrawer = Math.round(cid[i][1]/itemDenom);
-		if(itemDenom <= change && itemsInDrawer > 0){
-			console.log(itemsInDrawer, item + "s", itemDenom, itemDenom <= change);
-			var itemsNeeded = change/itemDenom;
-			console.log(itemsNeeded);
-		}
+		drawer.push({
+			'item': cid[i][0],
+			'denom': arrDenoms[i],
+			'units': Math.round(cid[i][1]/arrDenoms[i]),
+			'itemTotal': cid[i][1].toFixed(2)
+			}
+		);
 	}
+	console.log(drawer);
   // Here is your change, ma'am.
   return change;
 }
@@ -33,7 +34,7 @@ checkCashRegister(
 		["ONE HUNDRED", 100.00]
 	]
 );
-/*
+
 // should return a string.
 checkCashRegister(
 	19.50,
@@ -146,4 +147,3 @@ checkCashRegister(
 		["ONE HUNDRED", 0]
 	]
 );
-*/
