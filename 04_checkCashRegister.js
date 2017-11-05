@@ -1,21 +1,20 @@
 
 function checkCashRegister(price, cash, cid) {
-	// Initialize result array with 9 zeros
-	var arrResult = Array.apply(null, Array(9)).map(Number.prototype.valueOf,0);
+	var change = cash - price;
 	var arrDenoms = [0.01, 0.05, 0.10, 0.25, 1, 5, 10, 20, 100];
-  var change = cash - price;
-  console.log(change);
- for (var i = arrDenoms.length - 1; i >= 0; i--) {
- 	var changeNeeded = change;
- 	var denom = arrDenoms[i];
- 	var item = cid[i][0];
- 	var itemsInDrawer = Math.ceil(cid[i][1]/denom);
- 	if (denom <= changeNeeded && itemsInDrawer > 0){
- 		console.log(item, denom, itemsInDrawer, itemsInDrawer > 0);
- 	}
- }
- // Here is your change, ma'am.
- return change;
+	console.log(change);
+	for (var i = arrDenoms.length - 1; i >= 0; i--) {
+		var item = cid[i][0];
+		var itemDenom = arrDenoms[i];
+		var itemsInDrawer = Math.round(cid[i][1]/itemDenom);
+		if(itemDenom <= change && itemsInDrawer > 0){
+			console.log(itemsInDrawer, item + "s", itemDenom, itemDenom <= change);
+			var itemsNeeded = change/itemDenom;
+			console.log(itemsNeeded);
+		}
+	}
+  // Here is your change, ma'am.
+  return change;
 }
 
 // should return an array
@@ -34,7 +33,7 @@ checkCashRegister(
 		["ONE HUNDRED", 100.00]
 	]
 );
-
+/*
 // should return a string.
 checkCashRegister(
 	19.50,
@@ -147,3 +146,4 @@ checkCashRegister(
 		["ONE HUNDRED", 0]
 	]
 );
+*/
