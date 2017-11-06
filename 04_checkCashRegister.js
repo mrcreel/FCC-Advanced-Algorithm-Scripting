@@ -1,7 +1,9 @@
 
 function checkCashRegister(price, cash, cid) {
+
 	console.log('');
-	var change = cash - price;
+	var change = parseFloat(cash - price);
+	
 	var arrDenoms = [0.01, 0.05, 0.10, 0.25, 1, 5, 10, 20, 100];
 	var drawer = [];
 	for (var i = arrDenoms.length - 1; i >= 0; i--) {
@@ -13,11 +15,49 @@ function checkCashRegister(price, cash, cid) {
 			}
 		);
 	}
-	console.log(drawer);
-  // Here is your change, ma'am.
-  return change;
-}
 
+	var totalCash = drawer.reduce(function(prevVal, elem) {
+    return prevVal + parseFloat(elem.itemTotal);
+  }, 0);
+
+  if (change === totalCash) {
+  	console.log('Closed');
+  	return('Closed');
+  }
+
+  var usableDenoms = drawer.filter(function(elem) {
+  	return elem.denom <= change && elem.units > 0;
+  });
+  var usableCash = usableDenoms.reduce(function(prevVal, elem) {
+    return prevVal + parseFloat(elem.itemTotal);
+  }, 0);
+
+  if (change > usableCash) {
+  	console.log('Insufficient Funds');
+  	return('Insufficient Funds');
+  }
+
+  var arrResult = usableDenoms.reduce(function(preVal, elem) {
+  	var used = 0;
+  	while (elem.units > 0 && elem.denom <= change) {
+  		// statement
+  		used += elem.denom;
+  		elem.units --;
+  		change -= elem.denom;
+  		change = ((change * 100)/100).toFixed(2);
+  	}
+  	if (used > 0){
+  		used = parseFloat(used);
+  		preVal.push([elem.item, used]);
+  	}
+  	return preVal;
+
+  }, []);
+
+  // Here is your change, ma'am.
+  console.log(arrResult);
+  return arrResult;
+}
 // should return an array
 checkCashRegister(
 	19.50,
@@ -83,6 +123,7 @@ checkCashRegister(
 		["ONE HUNDRED", 100.00]
 	]
 );
+
 // should return [["TWENTY", 60.00], ["TEN", 20.00], ["FIVE", 15.00], ["ONE", 1.00], ["QUARTER", 0.50], ["DIME", 0.20], ["PENNY", 0.04]].
 checkCashRegister(
 	3.26,
@@ -99,6 +140,7 @@ checkCashRegister(
 		["ONE HUNDRED", 100.00]
 	]
 );
+
 // should return "Insufficient Funds".
 checkCashRegister(
 	19.50,
