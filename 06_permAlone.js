@@ -17,30 +17,23 @@ function permAlone(str) {
 
   permutate(chars);
 
-  console.log(permutations, permutations.length);
+  var results = permutations.filter(function(elem) {
+  	var dupe = elem.replace(/[^\w\s]|(.)\1/gi, "");
+  	return elem === dupe;
+  });
 
+  console.log(results.length);
 
-  
-  
-
-
-
-  console.log('');
-
-  return permutations;
+  return results.length;
 }
-permAlone("a"); // [a]
-permAlone("ab"); // [ab], [ba]
-permAlone("abc"); // [abc], [acb], [bac], [bca], [cab], [cba]
 
 permAlone("aab"); // should return a number.
 permAlone("aab"); // should return 2.
 permAlone("aaa"); // should return 0.
 permAlone("aabb"); // should return 8.
-/* permAlone("abcdefa"); // should return 3600.
-* permAlone("abfdefa"); // should return 2640.
-* permAlone("zzzzzzzz"); // should return 0.
-* permAlone("a"); // should return 1.
-* permAlone("aaab"); // should return 0.
-* permAlone("aaabb"); // should return 12.
-*/
+permAlone("abcdefa"); // should return 3600.
+permAlone("abfdefa"); // should return 2640.
+permAlone("zzzzzzzz"); // should return 0.
+permAlone("a"); // should return 1.
+permAlone("aaab"); // should return 0.
+permAlone("aaabb"); // should return 12.
