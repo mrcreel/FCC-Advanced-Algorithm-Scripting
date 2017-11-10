@@ -14,7 +14,6 @@ function orbitalPeriod(arr) {
   		}
     );
   });
-  console.log(arrResult);
   return arrResult;
 }
 
