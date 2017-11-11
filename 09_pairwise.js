@@ -1,4 +1,4 @@
-function pairwise(arr, arg, ans) {
+function pairwise(arr, arg) {
     var result = 0;
     var arrIndices = [];
 
