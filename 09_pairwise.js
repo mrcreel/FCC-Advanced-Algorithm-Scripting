@@ -1,29 +1,18 @@
 function pairwise(arr, arg, ans) {
-	console.log('');
-	console.log("([" + arr + "]," + arg + ") " + ans);
-	console.log("====================");
+    var result = 0;
+    var arrIndices = [];
 
-	var arrNumbers = [];
-	var arrIndices = [];
-	var objResults = [];
-
-	for (var i = 0; i < arr.length; i ++){
-		for ( j = i + 1; j < arr.length; j ++){
-			var varSum = arr[i] + arr[j];
-			if (varSum === arg){
-				arrNumbers.push([arr[i], arr[j]]);
-				arrIndices.push([[i, j], i + j]);
-				objResults.push(
-					{'numbers' : [arr[i], arr[j]]}
-				);
-			}
-		}
-	}
-	console.log(arrNumbers);
-	console.log(arrIndices);
-	console.log(objResults);
-	console.log('-------');
-  return arg;
+    for (var i = 0; i < arr.length; i++) {
+        for (j = i + 1; j < arr.length; j++) {
+            if (arr[i] + arr[j] === arg) {
+                if (arrIndices.indexOf(i) === -1 && arrIndices.indexOf(j) === -1) {
+                    arrIndices.push(i, j);
+                    result += (i + j);
+                }
+            }
+        }
+    }
+    return result;
 }
 
 pairwise([1, 4, 2, 3, 0, 5], 7, 11); //should return 11.
